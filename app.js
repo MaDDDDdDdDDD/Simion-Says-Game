@@ -6,36 +6,30 @@ let started = false;
 let level = 0;
 let highscore = 1;
 
-let h1 = document.querySelector("h1");
-let startMessage = document.querySelector(".start-message");
-let scoreDisplay = document.querySelector(".score");
+let h2 = document.querySelector("h2");
+let h3 = document.querySelector("h3");
 
 document.addEventListener("keydown", handleStart);
-document.addEventListener("mousedown", handleStart);
 document.addEventListener("touchstart", handleStart);
 
 function handleStart() {
     if (!started) {
         console.log("Game Started");
         started = true;
-        startMessage.innerText = "Watch closely...";
-        setTimeout(() => {
-            startMessage.innerText = "";
-            levelUp();
-        }, 1000);
+        levelUp();
     }
 }
 
 function btnFlash(btn) {
     btn.classList.add("flashBtn");
-    setTimeout(() => {
+    setTimeout(function () {
         btn.classList.remove("flashBtn");
     }, 500);
 }
 
 function userFlash(btn) {
     btn.classList.add("userFlash");
-    setTimeout(() => {
+    setTimeout(function () {
         btn.classList.remove("userFlash");
     }, 500);
 }
@@ -46,8 +40,7 @@ function levelUp() {
     if (level >= highscore) {
         highscore = level;
     }
-    h1.innerText = `Level ${level}`;
-    scoreDisplay.innerText = `Score: ${level}`;
+    h2.innerText = `Level ${level}`;
     let randIdx = Math.floor(Math.random() * btns.length);
     let randColor = btns[randIdx];
     let randBtn = document.querySelector(`.${randColor}`);
@@ -62,14 +55,13 @@ function checkAns(idx) {
             setTimeout(levelUp, 1000);
         }
     } else {
-        h1.innerText = "Game Over!";
-        startMessage.innerText = `Your score: ${level}`;
-        scoreDisplay.innerText = `Highscore: ${highscore}`;
-        document.body.style.backgroundColor = "#d32f2f";
-        setTimeout(() => {
-            document.body.style.backgroundColor = "#0d0d0d";
-            reset();
-        }, 1000);
+        h2.innerHTML = `Game Over! Your score was <b>${level}</b> <br> Press any Key to Start.`;
+        h3.innerHTML = `Highest Score =  ${highscore}`;
+        document.querySelector("body").style.backgroundColor = "red";
+        setTimeout(function () {
+            document.querySelector("body").style.backgroundColor = "black";
+        }, 300);
+        reset();
     }
 }
 
@@ -77,7 +69,7 @@ function btnPress() {
     let btn = this;
     userFlash(btn);
 
-    let userColor = btn.getAttribute("id");
+    userColor = btn.getAttribute("id");
     userSeq.push(userColor);
 
     checkAns(userSeq.length - 1);
@@ -93,7 +85,4 @@ function reset() {
     gameSeq = [];
     userSeq = [];
     level = 0;
-    h1.innerText = "Simon Says";
-    startMessage.innerText = "Press any key, click, or touch to start";
-    scoreDisplay.innerText = "";
 }
