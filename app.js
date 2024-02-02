@@ -9,7 +9,6 @@ let highscore = 1;
 let h2 = document.querySelector("h2");
 let h3 = document.querySelector("h3");
 
-// Listen for keypress or touchstart event to start the game
 document.addEventListener("keydown", handleStart);
 document.addEventListener("touchstart", handleStart);
 
@@ -52,7 +51,7 @@ function levelUp() {
 
 function checkAns(idx) {
     if (userSeq[idx] === gameSeq[idx]) {
-        if (userSeq.length == gameSeq.length) {
+        if (userSeq.length === gameSeq.length) {
             setTimeout(levelUp, 1000);
         }
     } else {
@@ -77,30 +76,8 @@ function btnPress() {
 }
 
 let allBtns = document.querySelectorAll(".btn");
-for (btn of allBtns) {
+for (let btn of allBtns) {
     btn.addEventListener("click", btnPress);
-}
-
-function reset() {
-    started = false;
-    gameSeq = [];
-    userSeq = [];
-    level = 0;
-}
-
-function btnPress() {
-    let btn = this;     
-    userFlash(btn);
-    
-    userColor = btn.getAttribute("id");
-    userSeq.push(userColor);
-
-    checkAns(userSeq.length - 1);
-}
-
-let allBtns = document.querySelectorAll(".btn");
-for (btn of allBtns) {
-    btn .addEventListener("click", btnPress);
 }
 
 function reset() {
