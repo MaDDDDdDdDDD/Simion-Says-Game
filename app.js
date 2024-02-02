@@ -11,9 +11,8 @@ let startMessage = document.querySelector(".start-message");
 let scoreDisplay = document.querySelector(".score");
 
 document.addEventListener("keydown", handleStart);
-
-// Updated event listener to start the game on mouse click as well
-document.addEventListener("click", handleStart);
+document.addEventListener("mousedown", handleStart);
+document.addEventListener("touchstart", handleStart);
 
 function handleStart() {
     if (!started) {
@@ -95,6 +94,6 @@ function reset() {
     userSeq = [];
     level = 0;
     h1.innerText = "Simon Says";
-    startMessage.innerText = "Press any key or click to start";
+    startMessage.innerText = "Press any key, click, or touch to start";
     scoreDisplay.innerText = "";
 }
